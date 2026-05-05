@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лабораторная работа №5</title>
+</head>
+<body>
+
+<h2>Задача 1. Числа</h2>
+<button onclick="taskReverseNumber()">1. Перевернуть число</button>
+<button onclick="taskRemoveDuplicatesDigits()">2. Удалить повторяющиеся цифры</button>
+<button onclick="taskCountDigitOccurrences()">3. Подсчитать цифру в числе</button>
+<button onclick="taskLongestBinarySequence()">4. Самая длинная последовательность 0/1 в двоичной записи</button>
+
+<h2>Задача 2. Строки</h2>
+<button onclick="taskFirstNonRepeatingChar()">1. Первый неповторяющийся символ</button>
+<button onclick="taskGenerateRandomString()">2. Сгенерировать случайную строку</button>
+<button onclick="taskUniqueChars()">3. Уникальные символы строки</button>
+
+
+
+<p><strong>Результат:</strong> <span id="result">---</span></p>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").textContent = "";
+    }
+
+    // ЗАДАЧА 1 
+
+    // 1. Перевернуть число
+    function taskReverseNumber() {
+        clearResult();
+        let input = prompt("Введите число:", "123");
+        if (!input) return;
+        let reversed = input.split('').reverse().join('');
+        document.getElementById("result").textContent = `Результат: ${reversed}`;
+    }
+
+    // 2. Удалить повторяющиеся цифры
+    function taskRemoveDuplicatesDigits() {
+        clearResult();
+        let input = prompt("Введите число:", "111333456");
+        if (!input) return;
+        let seen = new Set();
+        let result = [];
+        for (let i = 0; i < input.length; i++) {
+            if (!seen.has(input[i])) {
+                seen.add(input[i]);
+                result.push(input[i]);
+            }
+        }
+        document.getElementById("result").textContent = `Результат: ${result.join('')}`;
+    }
+
+    // 3. Подсчитать цифру в числе
+    function taskCountDigitOccurrences() {
+        clearResult();
+        let num = prompt("Введите число:", "1355567");
+        if (!num) return;
+        let digit = prompt("Введите цифру:", "5");
+        if (!digit) return;
+        let count = 0;
+        for (let i = 0; i < num.length; i++) {
+            if (num[i] === digit) count++;
+        }
+        document.getElementById("result").textContent = `Цифра ${digit} встречается ${count} раз(а)`;
+    }
+
+    // 4. Самая длинная последовательность 0/1 в двоичной записи
+    function taskLongestBinarySequence() {
+        clearResult();
+        let input = prompt("Введите число:", "123");
+        if (!input) return;
+        let num = parseInt(input);
+        let binary = num.toString(2);
+        let maxZeros = 0, maxOnes = 0;
+        let currZeros = 0, currOnes = 0;
+        for (let i = 0; i < binary.length; i++) {
+            if (binary[i] === '0') {
+                currZeros++;
+                currOnes = 0;
+                if (currZeros > maxZeros) maxZeros = currZeros;
+            } else {
+                currOnes++;
+                currZeros = 0;
+                if (currOnes > maxOnes) maxOnes = currOnes;
+            }
+        }
+        document.getElementById("result").textContent = `Двоичная: ${binary}, нулей: ${maxZeros}, единиц: ${maxOnes}`;
+    }
+
+    // ЗАДАЧА 2 
+
+    // 1. Первый неповторяющийся символ
+    function taskFirstNonRepeatingChar() {
+        clearResult();
+        let str = prompt("Введите строку:", "фывфавыапрс");
+        if (!str) return;
+        let count = {};
+        for (let i = 0; i < str.length; i++) {
+            count[str[i]] = (count[str[i]] || 0) + 1;
+        }
+        let result = "";
+        for (let i = 0; i < str.length; i++) {
+            if (count[str[i]] === 1) {
+                result = str[i];
+                break;
+            }
+        }
+        document.getElementById("result").textContent = result ? `Результат: '${result}'` : "Нет неповторяющихся символов";
+    }
+
+    // 2. Сгенерировать случайную строку
+    function taskGenerateRandomString() {
+        clearResult();
+        let len = prompt("Введите длину:", "5");
+        if (!len) return;
+        let length = parseInt(len);
+        let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+        for (let i = 0; i < length; i++) {
+            result += chars[Math.floor(Math.random() * chars.length)];
+        }
+        document.getElementById("result").textContent = `Результат: '${result}'`;
+    }
+
+    // 3. Уникальные символы строки
+    function taskUniqueChars() {
+        clearResult();
+        let str = prompt("Введите строку:", "позволяеткопироватьтекстиз");
+        if (!str) return;
+        let seen = new Set();
+        let result = "";
+        for (let i = 0; i < str.length; i++) {
+            if (!seen.has(str[i])) {
+                seen.add(str[i]);
+                result += str[i];
+            }
+        }
+        document.getElementById("result").textContent = `Результат: '${result}'`;
+    }
+
+   
+</script>
+
+</body>
+</html>
